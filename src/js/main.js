@@ -56,4 +56,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 250);
     });
+
+    // Back to Top Button
+    const backToTopButton = document.getElementById('backToTop');
+    
+    // Mostrar/ocultar botón al hacer scroll
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+
+    // Volver arriba al hacer click
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    
+    // Cargar tema guardado
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-theme');
+    }
+    
+    // Toggle del tema
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-theme');
+        
+        // Guardar preferencia
+        if (body.classList.contains('dark-theme')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
 });
