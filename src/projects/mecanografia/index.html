@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto de Mecanografía</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reto de Mecanografía</h1>
+            <p class="subtitle">Mejora tu velocidad y precisión al escribir</p>
+        </header>
+
+        <div class="stats-panel">
+            <div class="stat-item">
+                <span class="stat-label">PPM</span>
+                <span class="stat-value" id="wpm">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Precisión</span>
+                <span class="stat-value" id="accuracy">100%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Tiempo</span>
+                <span class="stat-value" id="timer">0s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Errores</span>
+                <span class="stat-value" id="errors">0</span>
+            </div>
+        </div>
+
+        <div class="text-display" id="textDisplay"></div>
+
+        <div class="input-section">
+            <input 
+                type="text" 
+                id="userInput" 
+                class="text-input" 
+                placeholder="Presiona cualquier tecla para comenzar..."
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+            >
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" id="restartBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                </svg>
+                Reiniciar
+            </button>
+            <button class="btn btn-secondary" id="newTextBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                Nuevo Texto
+            </button>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="results-content">
+                <h2>¡Excelente trabajo!</h2>
+                <div class="final-stats">
+                    <div class="final-stat">
+                        <div class="final-stat-value" id="finalWpm">0</div>
+                        <div class="final-stat-label">Palabras por minuto</div>
+                    </div>
+                    <div class="final-stat">
+                        <div class="final-stat-value" id="finalAccuracy">0%</div>
+                        <div class="final-stat-label">Precisión</div>
+                    </div>
+                    <div class="final-stat">
+                        <div class="final-stat-value" id="finalTime">0s</div>
+                        <div class="final-stat-label">Tiempo total</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="tryAgainBtn">Intentar de nuevo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
