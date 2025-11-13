@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Elegante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-color: #0f0f1e;
+            --card-bg: #1a1a2e;
+            --display-bg: #16213e;
+            --text-color: #ffffff;
+            --text-secondary: #b4b4b4;
+            --btn-bg: #2d2d44;
+            --btn-hover: #3d3d54;
+            --operator-color: #667eea;
+            --equals-color: #764ba2;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-theme {
+            --bg-color: #f0f0f7;
+            --card-bg: #ffffff;
+            --display-bg: #f8f9fa;
+            --text-color: #2d2d44;
+            --text-secondary: #6c757d;
+            --btn-bg: #e9ecef;
+            --btn-hover: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .light-theme body {
+            background: linear-gradient(135deg, #f0f0f7 0%, #e0e0f0 100%);
+        }
+
+        .container {
+            padding: 20px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .calculator {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calculator-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--btn-bg);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--btn-hover);
+            transform: rotate(20deg);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-color);
+        }
+
+        .sun { display: none; }
+        .moon { display: block; }
+        .light-theme .sun { display: block; }
+        .light-theme .moon { display: none; }
+
+        .display-container {
+            background: var(--display-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .display-history {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-bottom: 5px;
+            min-height: 24px;
+            word-wrap: break-word;
+        }
+
+        .display {
+            font-size: 2.5rem;
+            font-weight: 500;
+            text-align: right;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-number {
+            background: var(--btn-bg);
+            color: var(--text-color);
+        }
+
+        .btn-number:hover {
+            background: var(--btn-hover);
+        }
+
+        .btn-operator {
+            background: linear-gradient(135deg, var(--operator-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-function {
+            background: var(--btn-bg);
+            color: var(--operator-color);
+            font-weight: 600;
+        }
+
+        .btn-equals {
+            background: linear-gradient(135deg, var(--equals-color), var(--primary-color));
+            color: white;
+            grid-column: span 2;
+        }
+
+        .btn-zero {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .calculator {
+                padding: 20px;
+            }
+            
+            .display {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 15px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <div class="calculator-header">
+                <h1>Calculadora</h1>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="display-container">
+                <div class="display-history" id="history"></div>
+                <div class="display" id="display">0</div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-function" onclick="clearDisplay()">C</button>
+                <button class="btn btn-function" onclick="deleteLast()">⌫</button>
+                <button class="btn btn-function" onclick="appendToDisplay('(')">(</button>
+                <button class="btn btn-function" onclick="appendToDisplay(')')">)</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('7')">7</button>
+                <button class="btn btn-number" onclick="appendToDisplay('8')">8</button>
+                <button class="btn btn-number" onclick="appendToDisplay('9')">9</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('÷')">÷</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('4')">4</button>
+                <button class="btn btn-number" onclick="appendToDisplay('5')">5</button>
+                <button class="btn btn-number" onclick="appendToDisplay('6')">6</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('×')">×</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('1')">1</button>
+                <button class="btn btn-number" onclick="appendToDisplay('2')">2</button>
+                <button class="btn btn-number" onclick="appendToDisplay('3')">3</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('-')">−</button>
+                
+                <button class="btn btn-number btn-zero" onclick="appendToDisplay('0')">0</button>
+                <button class="btn btn-number" onclick="appendToDisplay('.')">.</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('+')">+</button>
+                
+                <button class="btn btn-equals" onclick="calculateResult()">=</button>
+                <button class="btn btn-function" onclick="appendToDisplay('%')">%</button>
+                <button class="btn btn-function" onclick="appendToDisplay('^')">^</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let displayValue = '0';
+        let history = '';
+
+        const display = document.getElementById('display');
+        const historyDisplay = document.getElementById('history');
+
+        // Cargar tema guardado
+        const savedTheme = localStorage.getItem('calculatorTheme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+        }
+
+        function updateDisplay() {
+            display.textContent = displayValue || '0';
+            historyDisplay.textContent = history;
+        }
+
+        function appendToDisplay(value) {
+            if (displayValue === '0' && value !== '.') {
+                displayValue = value;
+            } else {
+                displayValue += value;
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            displayValue = '0';
+            history = '';
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (displayValue.length > 1) {
+                displayValue = displayValue.slice(0, -1);
+            } else {
+                displayValue = '0';
+            }
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            try {
+                history = displayValue;
+                
+                // Reemplazar símbolos para evaluación
+                let expression = displayValue
+                    .replace(/×/g, '*')
+                    .replace(/÷/g, '/')
+                    .replace(/\^/g, '**');
+                
+                // Evaluar la expresión de forma segura
+                const result = Function('"use strict"; return (' + expression + ')')();
+                
+                // Redondear a 10 decimales para evitar errores de punto flotante
+                displayValue = Number.isInteger(result) ? result.toString() : result.toFixed(10).replace(/\.?0+$/, '');
+                
+                updateDisplay();
+            } catch (error) {
+                displayValue = 'Error';
+                updateDisplay();
+                setTimeout(() => {
+                    displayValue = '0';
+                    history = '';
+                    updateDisplay();
+                }, 1500);
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+            localStorage.setItem('calculatorTheme', theme);
+        }
+
+        // Soporte de teclado
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+            
+            if (!isNaN(key) || key === '.') {
+                appendToDisplay(key);
+            } else if (key === '+' || key === '-') {
+                appendToDisplay(key);
+            } else if (key === '*') {
+                appendToDisplay('×');
+            } else if (key === '/') {
+                event.preventDefault();
+                appendToDisplay('÷');
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                calculateResult();
+            } else if (key === 'Escape') {
+                clearDisplay();
+            } else if (key === 'Backspace') {
+                event.preventDefault();
+                deleteLast();
+            } else if (key === '(' || key === ')') {
+                appendToDisplay(key);
+            } else if (key === '%') {
+                appendToDisplay('%');
+            }
+        });
+    </script>
+</body>
+</html>
