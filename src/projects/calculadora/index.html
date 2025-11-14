@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Elegante</title>
+    <title>Calculadora Python</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --bg-color: #0f0f1e;
-            --card-bg: #1a1a2e;
-            --display-bg: #16213e;
+            --primary-color: #3776ab;
+            --secondary-color: #ffd343;
+            --bg-color: #1e1e1e;
+            --card-bg: #2d2d2d;
+            --display-bg: #1a1a1a;
             --text-color: #ffffff;
-            --text-secondary: #b4b4b4;
-            --btn-bg: #2d2d44;
-            --btn-hover: #3d3d54;
-            --operator-color: #667eea;
-            --equals-color: #764ba2;
-            --shadow: rgba(0, 0, 0, 0.5);
+            --text-secondary: #888888;
+            --btn-bg: #404040;
+            --btn-hover: #505050;
+            --operator-color: #3776ab;
+            --equals-color: #2e8b57;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         .light-theme {
-            --bg-color: #f0f0f7;
-            --card-bg: #ffffff;
-            --display-bg: #f8f9fa;
-            --text-color: #2d2d44;
-            --text-secondary: #6c757d;
-            --btn-bg: #e9ecef;
-            --btn-hover: #dee2e6;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --bg-color: #e8e8e8;
+            --card-bg: #f5f5f5;
+            --display-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --text-secondary: #666666;
+            --btn-bg: #d4d4d4;
+            --btn-hover: #c4c4c4;
+            --shadow: rgba(0, 0, 0, 0.15);
         }
 
         * {
@@ -42,7 +42,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--bg-color) 0%, #1a1a2e 100%);
+            background: var(--bg-color);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -52,7 +52,7 @@
         }
 
         .light-theme body {
-            background: linear-gradient(135deg, #f0f0f7 0%, #e0e0f0 100%);
+            background: var(--bg-color);
         }
 
         .container {
@@ -63,10 +63,10 @@
 
         .calculator {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 20px 60px var(--shadow);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .calculator-header {
@@ -79,9 +79,7 @@
         .calculator-header h1 {
             font-size: 1.5rem;
             font-weight: 600;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-color);
         }
 
         .theme-toggle {
@@ -159,8 +157,8 @@
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--shadow);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px var(--shadow);
         }
 
         .btn:active {
@@ -177,18 +175,18 @@
         }
 
         .btn-operator {
-            background: linear-gradient(135deg, var(--operator-color), var(--secondary-color));
+            background: var(--operator-color);
             color: white;
         }
 
         .btn-function {
             background: var(--btn-bg);
-            color: var(--operator-color);
+            color: var(--secondary-color);
             font-weight: 600;
         }
 
         .btn-equals {
-            background: linear-gradient(135deg, var(--equals-color), var(--primary-color));
+            background: var(--equals-color);
             color: white;
             grid-column: span 2;
         }
@@ -221,7 +219,7 @@
     <div class="container">
         <div class="calculator">
             <div class="calculator-header">
-                <h1>Calculadora</h1>
+                <h1>Calculadora Python</h1>
                 <div class="theme-toggle" onclick="toggleTheme()">
                     <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
