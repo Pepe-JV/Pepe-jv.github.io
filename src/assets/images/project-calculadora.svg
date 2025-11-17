@@ -68,10 +68,4 @@
     <rect x="145" y="190" width="40" height="35" rx="3" fill="#f6ad55"/>
     <text x="165" y="212" font-family="Arial" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="bold">+</text>
   </g>
-  
-  <!-- Python Logo -->
-  <g transform="translate(20, 20)">
-    <circle cx="25" cy="25" r="22" fill="#3776ab" opacity="0.9"/>
-    <text x="25" y="35" font-family="Arial" font-size="28" fill="#ffffff" text-anchor="middle" font-weight="bold">Py</text>
-  </g>
 </svg>
