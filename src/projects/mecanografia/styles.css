@@ -13,6 +13,41 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    position: relative;
+}
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(45, 45, 45, 0.9);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    background: rgba(55, 55, 55, 0.95);
+}
+
+.back-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover svg {
+    transform: translateX(-3px);
 }
 
 .container {
