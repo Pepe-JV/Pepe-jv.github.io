@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#1e1e1e"/>
+  
+  <!-- App Card Container -->
+  <rect x="60" y="40" width="280" height="220" rx="8" fill="#2a2a2a" stroke="#444" stroke-width="1"/>
+  
+  <!-- Header with React Logo -->
+  <circle cx="200" cy="80" r="20" fill="none" stroke="#61dafb" stroke-width="1.5"/>
+  <circle cx="200" cy="80" r="2" fill="#61dafb"/>
+  <ellipse cx="200" cy="80" rx="20" ry="7" fill="none" stroke="#61dafb" stroke-width="1"/>
+  <ellipse cx="200" cy="80" rx="20" ry="7" fill="none" stroke="#61dafb" stroke-width="1" transform="rotate(60 200 80)"/>
+  <ellipse cx="200" cy="80" rx="20" ry="7" fill="none" stroke="#61dafb" stroke-width="1" transform="rotate(120 200 80)"/>
+  
+  <!-- Title -->
+  <text x="200" y="115" font-family="Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle">Lista de Tareas</text>
+  
+  <!-- Input Field -->
+  <rect x="80" y="135" width="200" height="28" rx="6" fill="#282c34" stroke="#444" stroke-width="1"/>
+  <text x="90" y="153" font-family="Arial, sans-serif" font-size="11" fill="#999">Nueva tarea...</text>
+  
+  <!-- Add Button -->
+  <rect x="290" y="135" width="30" height="28" rx="6" fill="#61dafb"/>
+  <text x="305" y="153" font-family="Arial, sans-serif" font-size="16" fill="#282c34" text-anchor="middle">+</text>
+  
+  <!-- Todo Items -->
+  <!-- Item 1 -->
+  <rect x="80" y="175" width="240" height="26" rx="6" fill="#282c34" stroke="#444" stroke-width="1"/>
+  <circle cx="92" cy="188" r="4" fill="none" stroke="#61dafb" stroke-width="1.5"/>
+  <text x="105" y="192" font-family="Arial, sans-serif" font-size="10" fill="#ffffff">Aprender React</text>
+  
+  <!-- Item 2 - Completed -->
+  <rect x="80" y="210" width="240" height="26" rx="6" fill="#282c34" stroke="#444" stroke-width="1"/>
+  <circle cx="92" cy="223" r="4" fill="#61dafb" stroke="#61dafb" stroke-width="1.5"/>
+  <text x="105" y="227" font-family="Arial, sans-serif" font-size="10" fill="#999" text-decoration="line-through">Crear app</text>
+</svg>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas - React</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Volver
+    </a>
+
+    <div id="root"></div>
+
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- App Script -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Componente para cada tarea individual
+        function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
+            const [isEditing, setIsEditing] = useState(false);
+            const [editText, setEditText] = useState(todo.text);
+
+            const handleEdit = () => {
+                if (isEditing && editText.trim()) {
+                    editTodo(todo.id, editText);
+                }
+                setIsEditing(!isEditing);
+            };
+
+            return (
+                <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+                    <div className="todo-content">
+                        <input
+                            type="checkbox"
+                            checked={todo.completed}
+                            onChange={() => toggleTodo(todo.id)}
+                            className="todo-checkbox"
+                        />
+                        {isEditing ? (
+                            <input
+                                type="text"
+                                value={editText}
+                                onChange={(e) => setEditText(e.target.value)}
+                                className="todo-edit-input"
+                                autoFocus
+                            />
+                        ) : (
+                            <span className="todo-text">{todo.text}</span>
+                        )}
+                    </div>
+                    <div className="todo-actions">
+                            <button onClick={handleEdit} className="btn-edit" aria-label={isEditing ? 'Guardar' : 'Editar'}>
+                            {isEditing ? '✓' : 'Editar'}
+                        </button>
+                        <button onClick={() => deleteTodo(todo.id)} className="btn-delete" aria-label="Eliminar">
+                            ✕
+                        </button>
+                    </div>
+                </li>
+            );
+        }
+
+        // Componente principal de la aplicación
+        function TodoApp() {
+            const [todos, setTodos] = useState(() => {
+                const savedTodos = localStorage.getItem('todos');
+                return savedTodos ? JSON.parse(savedTodos) : [];
+            });
+            const [inputValue, setInputValue] = useState('');
+            const [filter, setFilter] = useState('all');
+
+            // Guardar en localStorage cuando cambien las tareas
+            useEffect(() => {
+                localStorage.setItem('todos', JSON.stringify(todos));
+            }, [todos]);
+
+            // Añadir nueva tarea
+            const addTodo = (e) => {
+                e.preventDefault();
+                if (inputValue.trim()) {
+                    setTodos([...todos, {
+                        id: Date.now(),
+                        text: inputValue,
+                        completed: false,
+                        createdAt: new Date().toISOString()
+                    }]);
+                    setInputValue('');
+                }
+            };
+
+            // Marcar como completada/no completada
+            const toggleTodo = (id) => {
+                setTodos(todos.map(todo =>
+                    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+                ));
+            };
+
+            // Eliminar tarea
+            const deleteTodo = (id) => {
+                setTodos(todos.filter(todo => todo.id !== id));
+            };
+
+            // Editar tarea
+            const editTodo = (id, newText) => {
+                setTodos(todos.map(todo =>
+                    todo.id === id ? { ...todo, text: newText } : todo
+                ));
+            };
+
+            // Limpiar todas las tareas completadas
+            const clearCompleted = () => {
+                setTodos(todos.filter(todo => !todo.completed));
+            };
+
+            // Filtrar tareas
+            const filteredTodos = todos.filter(todo => {
+                if (filter === 'active') return !todo.completed;
+                if (filter === 'completed') return todo.completed;
+                return true;
+            });
+
+            const activeTodosCount = todos.filter(todo => !todo.completed).length;
+            const completedTodosCount = todos.filter(todo => todo.completed).length;
+
+            return (
+                <div className="container">
+                    <div className="todo-app">
+                        <header className="app-header">
+                            <div className="header-content">
+                                <div className="react-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348" width="60" height="60">
+                                        <circle cx="0" cy="0" r="2.05" fill="#61dafb"/>
+                                        <g stroke="#61dafb" strokeWidth="1" fill="none">
+                                            <ellipse rx="11" ry="4.2"/>
+                                            <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                                            <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+                                </g>
+                                    </svg>
+                                </div>
+                                <h1>Lista de Tareas</h1>
+                            </div>
+                            <p class="subtitle">Gestiona tus tareas de forma eficiente</p>
+                        </header>
+
+                        <form onSubmit={addTodo} className="todo-form">
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                placeholder="¿Qué necesitas hacer?"
+                                className="todo-input"
+                            />
+                            <button type="submit" className="btn-add">
+                                Agregar
+                            </button>
+                        </form>
+
+                        <div className="filter-buttons">
+                            <button
+                                className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+                                onClick={() => setFilter('all')}
+                            >
+                                Todas ({todos.length})
+                            </button>
+                            <button
+                                className={`filter-btn ${filter === 'active' ? 'active' : ''}`}
+                                onClick={() => setFilter('active')}
+                            >
+                                Activas ({activeTodosCount})
+                            </button>
+                            <button
+                                className={`filter-btn ${filter === 'completed' ? 'active' : ''}`}
+                                onClick={() => setFilter('completed')}
+                            >
+                                Completadas ({completedTodosCount})
+                            </button>
+                        </div>
+
+                        {filteredTodos.length > 0 ? (
+                            <ul className="todo-list">
+                                {filteredTodos.map(todo => (
+                                    <TodoItem
+                                        key={todo.id}
+                                        todo={todo}
+                                        toggleTodo={toggleTodo}
+                                        deleteTodo={deleteTodo}
+                                        editTodo={editTodo}
+                                    />
+                                ))}
+                            </ul>
+                        ) : (
+                            <div className="empty-state">
+                                <p>
+                                    {filter === 'all' ? 'No hay tareas. Añade una nueva.' :
+                                     filter === 'active' ? 'No hay tareas activas.' :
+                                     'No hay tareas completadas.'}
+                                </p>
+                            </div>
+                        )}
+
+                        {completedTodosCount > 0 && (
+                            <div className="footer-actions">
+                                <button onClick={clearCompleted} className="btn-clear">
+                                    Limpiar completadas ({completedTodosCount})
+                                </button>
+                            </div>
+                        )}
+
+                        <footer className="app-footer">
+                            <p>Construido con React</p>
+                        </footer>
+                    </div>
+                </div>
+            );
+        }
+
+        // Renderizar la aplicación
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<TodoApp />);
+    </script>
+</body>
+</html>
