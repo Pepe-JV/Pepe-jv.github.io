@@ -55,16 +55,18 @@ Para visualizar el portfolio localmente:
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/Pepe-JV/Portfolio.git
+git clone https://github.com/Pepe-JV/Pepe-JV.github.io.git
 
 # Abrir index.html en tu navegador
 # O usar un servidor local como Live Server
 ```
 
+**URL del portfolio**: [https://pepe-jv.github.io](https://pepe-jv.github.io)
+
 ## 📧 Contacto
 
 - **GitHub**: [Pepe-JV](https://github.com/Pepe-JV)
-- **Email**: [Tu email aquí]
+- **Email**: [jjusticiavico@gmail.com]
 
 ---
 
