@@ -1,0 +1,37 @@
+# Archivos de configuración con credenciales
+config.json
+
+# Directorio de backups
+backups/*
+!backups/.gitkeep
+
+# Directorio de logs
+logs/*
+!logs/.gitkeep
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de backup comprimidos
+*.gz
+*.zip
+*.tar
+*.sql
+*.archive
+*.db
+
+# Variables de entorno
+.env
+.env.local
