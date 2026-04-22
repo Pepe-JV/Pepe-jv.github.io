@@ -430,6 +430,12 @@ main {
     text-align: center;
 }
 
+.experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .experience-content {
     background-color: var(--bg-secondary);
     border-radius: 20px;
@@ -518,6 +524,10 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 20px;
+}
+
+.tech-grid--single {
+    grid-template-columns: repeat(8, 1fr);
 }
 
 .tech-item {
